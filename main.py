@@ -3,12 +3,18 @@ import json
 import aiomax
 import os
 from gigachat import GigaChat
+from dotenv import load_dotenv
+
+load_dotenv()
 
 os.environ["GIGACHAT_VERIFY_SSL_CERTS"] = "False"
 
+MAX_BOT_TOKEN = os.getenv("MAX_BOT_TOKEN")
+GIGACHAT_API = os.getenv("GIGACHAT_API")
+
 giga = GigaChat(
     base_url="https://api.giga.chat/v1",
-    credentials="ТОКЕН GigaChat",
+    credentials=GIGACHAT_API,
     model="GigaChat-3-Ultra",
     verify_ssl_certs=False,
     temperature=0.3,
@@ -16,7 +22,7 @@ giga = GigaChat(
     repetition_penalty=1.05
 )
 
-bot = aiomax.Bot("ТОКЕН Max", use_certificate=True)
+bot = aiomax.Bot(MAX_BOT_TOKEN, use_certificate=True)
 
 verified_users = {}
 
